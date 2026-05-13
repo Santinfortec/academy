@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Santinfortec Academy — Certificação CCNA em Português</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:         #0C0A06;
+  --bg2:        #111009;
+  --bg3:        #18150E;
+  --orange:     #FF6B00;
+  --orange-lt:  #FF8C35;
+  --orange-dim: rgba(255,107,0,0.15);
+  --orange-glow:rgba(255,107,0,0.08);
+  --amber:      #FFB300;
+  --red:        #FF3B3B;
+  --white:      #F5EFE6;
+  --white-70:   rgba(245,239,230,0.70);
+  --white-40:   rgba(245,239,230,0.40);
+  --white-15:   rgba(245,239,230,0.15);
+  --white-08:   rgba(245,239,230,0.08);
+  --white-04:   rgba(245,239,230,0.04);
+  --green-term: #4DFF91;
+  --term-bg:    #080B06;
+  --fh: 'Syne', sans-serif;
+  --fb: 'Space Grotesk', sans-serif;
+  --fm: 'JetBrains Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: var(--fb);
+  overflow-x: hidden;
+  line-height: 1.65;
+}
+
+/* ── NOISE TEXTURE ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; opacity: .6;
+}
+
+/* ── TOPBAR ── */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .9rem 5%;
+  background: rgba(12,10,6,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,107,0,0.12);
+}
+.logo-wrap { display: flex; align-items: center; gap: .75rem; text-decoration: none; }
+.logo-icon {
+  width: 36px; height: 36px; border-radius: 8px;
+  background: var(--orange);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--fm); font-weight: 700; font-size: .75rem; color: #000;
+}
+.logo-text {
+  font-family: var(--fh); font-size: 1.1rem; font-weight: 800;
+  letter-spacing: -.02em; color: var(--white); line-height: 1.1;
+}
+.logo-text span { color: var(--orange); display: block; font-size: .65rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+nav { display: flex; align-items: center; gap: 1.8rem; }
+nav a { color: var(--white-70); text-decoration: none; font-size: .85rem; font-weight: 500; transition: color .2s; }
+nav a:hover { color: var(--orange); }
+.nav-cta {
+  background: var(--orange); color: #000 !important;
+  font-weight: 700 !important; padding: .5rem 1.3rem;
+  border-radius: 6px; transition: background .2s, transform .15s !important;
+}
+.nav-cta:hover { background: var(--orange-lt) !important; transform: translateY(-1px); }
+
+/* ── HERO ── */
+.hero {
+  position: relative; z-index: 1;
+  min-height: 100vh;
+  display: grid; grid-template-columns: 1fr 1fr;
+  align-items: center; gap: 4rem;
+  padding: 9rem 5% 5rem;
+  overflow: hidden;
+}
+
+.hero-bg-glow {
+  position: absolute; pointer-events: none;
+  border-radius: 50%;
+}
+.hg1 {
+  width: 800px; height: 800px;
+  top: -300px; right: -200px;
+  background: radial-gradient(circle, rgba(255,107,0,.1) 0%, transparent 65%);
+}
+.hg2 {
+  width: 500px; height: 500px;
+  bottom: -100px; left: -100px;
+  background: radial-gradient(circle, rgba(255,179,0,.06) 0%, transparent 70%);
+}
+
+/* linhas decorativas */
+.hero::after {
+  content: '';
+  position: absolute; top: 0; left: 50%; bottom: 0; width: 1px;
+  background: linear-gradient(180deg, transparent 0%, rgba(255,107,0,.15) 30%, rgba(255,107,0,.15) 70%, transparent 100%);
+  pointer-events: none;
+}
+
+.hero-left { position: relative; z-index: 2; }
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: .5rem;
+  border: 1px solid rgba(255,107,0,.3);
+  background: rgba(255,107,0,.08);
+  color: var(--orange-lt); font-size: .7rem; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  padding: .35rem .9rem; border-radius: 4px; margin-bottom: 1.8rem;
+}
+.eyebrow-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--orange);
+  animation: pulse-dot 2s infinite;
+}
+@keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
+
+h1 {
+  font-family: var(--fh); font-weight: 800;
+  font-size: clamp(3rem, 4.5vw, 4.6rem);
+  line-height: 1.0; letter-spacing: -.04em;
+  margin-bottom: 1.4rem;
+}
+h1 .hl { color: var(--orange); }
+h1 .dim { color: var(--white-40); }
+
+.hero-desc {
+  font-size: 1.05rem; color: var(--white-70); max-width: 500px;
+  line-height: 1.8; margin-bottom: 2.2rem; font-weight: 400;
+}
+
+.hero-btns { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
+
+.btn-primary {
+  display: inline-flex; align-items: center; gap: .55rem;
+  background: var(--orange); color: #000;
+  font-family: var(--fh); font-weight: 700; font-size: .95rem;
+  padding: .9rem 2rem; border-radius: 6px; text-decoration: none;
+  transition: background .2s, transform .15s, box-shadow .2s;
+  box-shadow: 0 0 32px rgba(255,107,0,.3);
+  border: none; cursor: pointer;
+}
+.btn-primary:hover { background: var(--orange-lt); transform: translateY(-2px); box-shadow: 0 0 52px rgba(255,107,0,.5); }
+.btn-primary .arr { transition: transform .2s; }
+.btn-primary:hover .arr { transform: translateX(4px); }
+
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: .55rem;
+  border: 1px solid rgba(255,107,0,.35); color: var(--orange-lt);
+  font-weight: 600; font-size: .88rem;
+  padding: .85rem 1.6rem; border-radius: 6px; text-decoration: none;
+  transition: background .2s, border-color .2s;
+  cursor: pointer; background: none;
+}
+.btn-ghost:hover { background: rgba(255,107,0,.1); border-color: rgba(255,107,0,.6); }
+
+.hero-nums {
+  display: flex; gap: 2rem; flex-wrap: wrap;
+  padding-top: 2rem; border-top: 1px solid var(--white-15);
+}
+.num-item {}
+.num-val {
+  font-family: var(--fh); font-size: 2rem; font-weight: 800; line-height: 1;
+  margin-bottom: .2rem; display: block;
+}
+.num-val em { font-style: normal; color: var(--orange); }
+.num-lbl { font-size: .72rem; color: var(--white-40); font-weight: 500; letter-spacing: .04em; }
+
+/* ── CARD HERO DIREITO ── */
+.hero-right { position: relative; z-index: 2; }
+
+.cert-card {
+  background: var(--bg3);
+  border: 1px solid rgba(255,107,0,.18);
+  border-radius: 16px; padding: 1.8rem; position: relative; overflow: hidden;
+}
+.cert-card::before {
+  content: '';
+  position: absolute; top: 0; left: 10%; right: 10%; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--orange), transparent);
+}
+
+.cc-head { display: flex; align-items: center; gap: .9rem; margin-bottom: 1.5rem; }
+.cc-logo-box {
+  width: 46px; height: 46px; border-radius: 10px;
+  background: var(--orange);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--fm); font-weight: 700; font-size: .72rem; color: #000; flex-shrink: 0;
+}
+.cc-name { font-family: var(--fh); font-weight: 700; font-size: 1rem; margin-bottom: .1rem; }
+.cc-sub { font-size: .72rem; color: var(--white-40); }
+
+.cc-prog { margin-bottom: 1.5rem; }
+.cc-prog-row { display: flex; justify-content: space-between; font-size: .72rem; color: var(--white-40); margin-bottom: .4rem; }
+.cc-prog-row span:last-child { color: var(--orange); font-weight: 600; }
+.pbar { height: 4px; background: var(--white-08); border-radius: 100px; overflow: hidden; }
+.pfill {
+  height: 100%; border-radius: 100px;
+  background: linear-gradient(90deg, var(--orange), var(--amber));
+  width: 0; transition: width 2s cubic-bezier(.25,.8,.25,1);
+}
+
+.cc-mods { display: flex; flex-direction: column; gap: .55rem; }
+.cc-mod {
+  display: flex; align-items: center; gap: .7rem;
+  font-size: .8rem; padding: .5rem .75rem; border-radius: 7px;
+  background: var(--white-04);
+}
+.cc-mod.act { background: rgba(255,107,0,.09); border: 1px solid rgba(255,107,0,.2); }
+.cc-mod.dim { opacity: .4; }
+.mod-dot {
+  width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: .68rem;
+}
+.dot-ok { background: var(--amber); color: #000; }
+.dot-go { background: var(--orange); color: #000; }
+.dot-no { border: 1.5px solid var(--white-15); }
+
+.float-pill {
+  position: absolute;
+  background: var(--bg2); border: 1px solid rgba(255,107,0,.2);
+  border-radius: 10px; padding: .6rem .9rem;
+  display: flex; align-items: center; gap: .5rem;
+  box-shadow: 0 8px 28px rgba(0,0,0,.5);
+  font-size: .75rem; white-space: nowrap; z-index: 5;
+}
+.fp-top { top: -18px; left: -18px; }
+.fp-bot { bottom: -18px; right: -18px; }
+.fp-pulse {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--orange); flex-shrink: 0;
+  animation: pulse-dot 1.5s infinite;
+}
+
+/* ── LOGOS ── */
+.logos-strip {
+  position: relative; z-index: 1;
+  padding: 1.8rem 5%;
+  border-top: 1px solid var(--white-08);
+  border-bottom: 1px solid var(--white-08);
+  text-align: center;
+}
+.logos-label { font-size: .68rem; letter-spacing: .15em; text-transform: uppercase; color: var(--white-40); margin-bottom: 1.2rem; }
+.logos-row {
+  display: flex; align-items: center; justify-content: center;
+  gap: 3rem; flex-wrap: wrap; opacity: .35;
+}
+.logos-row span { font-family: var(--fh); font-weight: 700; font-size: 1rem; letter-spacing: -.01em; }
+
+/* ══════════════════════════════════
+   SEPARADOR DE VANTAGENS
+══════════════════════════════════ */
+.vantagens-section {
+  position: relative; z-index: 1;
+  padding: 5rem 5%;
+  background: var(--bg2);
+  overflow: hidden;
+}
+.vantagens-section::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0px,
+    transparent 119px,
+    rgba(255,107,0,.04) 119px,
+    rgba(255,107,0,.04) 120px
+  );
+  pointer-events: none;
+}
+
+.vant-header { text-align: center; margin-bottom: 3rem; }
+.vant-header .s-label { color: var(--orange); font-size: .7rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; margin-bottom: .6rem; }
+
+.vant-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border: 1px solid var(--white-08);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.vant-item {
+  padding: 2rem 1.8rem;
+  border-right: 1px solid var(--white-08);
+  border-bottom: 1px solid var(--white-08);
+  position: relative;
+  transition: background .25s;
+}
+.vant-item:nth-child(4n) { border-right: none; }
+.vant-item:nth-last-child(-n+4) { border-bottom: none; }
+.vant-item:hover { background: rgba(255,107,0,.05); }
+.vant-item::after {
+  content: '';
+  position: absolute; bottom: 0; left: 1.8rem; right: 1.8rem; height: 1px;
+  background: transparent; transition: background .25s;
+}
+.vant-item:hover::after { background: rgba(255,107,0,.3); }
+
+.vant-num {
+  font-family: var(--fh); font-size: 2.2rem; font-weight: 800;
+  color: var(--orange); line-height: 1; margin-bottom: .6rem; display: block;
+}
+.vant-titulo { font-family: var(--fh); font-weight: 700; font-size: .95rem; margin-bottom: .45rem; }
+.vant-desc { font-size: .82rem; color: var(--white-40); line-height: 1.65; }
+
+/* ── SECÇÕES ── */
+section { position: relative; z-index: 1; padding: 6rem 5%; }
+.s-label { font-size: .7rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--orange); margin-bottom: .65rem; }
+h2 {
+  font-family: var(--fh); font-size: clamp(2rem, 3.6vw, 2.8rem);
+  font-weight: 800; letter-spacing: -.035em; line-height: 1.1; margin-bottom: .9rem;
+}
+.s-desc { font-size: .98rem; color: var(--white-70); max-width: 540px; line-height: 1.75; }
+
+/* ── CURSOS ── */
+.cursos-head {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  gap: 2rem; flex-wrap: wrap; margin-bottom: 3rem;
+}
+.cursos-grid {
+  display: grid; grid-template-columns: 1fr 1.05fr; gap: 1.5rem;
+}
+
+.card {
+  background: var(--bg3); border: 1px solid var(--white-08);
+  border-radius: 14px; overflow: hidden;
+  display: flex; flex-direction: column;
+  transition: transform .2s, border-color .25s, box-shadow .2s;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0,0,0,.35);
+}
+.card.paid { border-color: rgba(255,107,0,.25); }
+.card.paid:hover { border-color: rgba(255,107,0,.5); box-shadow: 0 16px 48px rgba(0,0,0,.35), 0 0 0 1px rgba(255,107,0,.15); }
+.card.free {
+  border-color: rgba(255,179,0,.2);
+  background: linear-gradient(145deg, #131008 0%, var(--bg3) 100%);
+}
+.card.free:hover { border-color: rgba(255,179,0,.4); }
+
+.card-head { padding: 1.6rem 1.6rem 0; position: relative; }
+.pill {
+  display: inline-block; font-size: .65rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: .25rem .7rem; border-radius: 4px; margin-bottom: .9rem;
+}
+.pill-ccna { background: rgba(255,107,0,.15); color: var(--orange); }
+.pill-free { background: rgba(255,179,0,.13); color: var(--amber); }
+
+.badge-hot {
+  position: absolute; top: 1rem; right: 1rem;
+  background: var(--orange); color: #000;
+  font-size: .6rem; font-weight: 800; letter-spacing: .07em;
+  text-transform: uppercase; padding: .2rem .6rem; border-radius: 4px;
+}
+.badge-new {
+  position: absolute; top: 1rem; right: 1rem;
+  background: var(--amber); color: #000;
+  font-size: .6rem; font-weight: 800; letter-spacing: .07em;
+  text-transform: uppercase; padding: .2rem .6rem; border-radius: 4px;
+}
+
+.card-icon { font-size: 2.2rem; margin-bottom: .7rem; display: block; }
+.card-nome { font-family: var(--fh); font-weight: 700; font-size: 1.2rem; margin-bottom: .5rem; }
+.card-desc { font-size: .84rem; color: var(--white-70); line-height: 1.65; margin-bottom: 1rem; }
+.card-lista {
+  list-style: none; font-size: .82rem; color: var(--white-70); line-height: 1.9; margin-bottom: 1.2rem;
+}
+.card-lista li { display: flex; align-items: flex-start; gap: .5rem; }
+.card-lista li::before { content: '▸'; color: var(--orange); flex-shrink: 0; }
+
+.card-meta {
+  display: flex; gap: 1rem; flex-wrap: wrap;
+  padding: .85rem 1.6rem; border-top: 1px solid var(--white-08);
+  font-size: .76rem; color: var(--white-40);
+}
+
+.card-foot {
+  padding: 1.2rem 1.6rem; display: flex;
+  align-items: center; justify-content: space-between; margin-top: auto;
+}
+.preco { font-family: var(--fh); font-size: 1.55rem; font-weight: 800; }
+.preco-old { font-size: .8rem; color: var(--white-40); text-decoration: line-through; margin-left: .4rem; }
+.preco-free { font-family: var(--fh); font-size: 1.4rem; font-weight: 800; color: var(--amber); }
+
+.btn-hotmart {
+  background: var(--orange); color: #000;
+  font-weight: 700; font-size: .82rem;
+  padding: .65rem 1.4rem; border-radius: 6px;
+  text-decoration: none; border: none; cursor: pointer;
+  transition: background .2s, transform .15s, box-shadow .15s;
+  display: inline-flex; align-items: center; gap: .4rem;
+}
+.btn-hotmart:hover { background: var(--orange-lt); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(255,107,0,.4); }
+
+.btn-lead {
+  background: var(--amber); color: #000;
+  font-weight: 700; font-size: .82rem;
+  padding: .65rem 1.4rem; border-radius: 6px;
+  border: none; cursor: pointer;
+  transition: background .2s, transform .15s, box-shadow .15s;
+}
+.btn-lead:hover { background: #ffc333; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(255,179,0,.35); }
+
+/* ══════════════════════════════════
+   CISCO SHELL INTERATIVA
+══════════════════════════════════ */
+.shell-section {
+  position: relative; z-index: 1;
+  background: var(--bg2); padding: 6rem 5%;
+  overflow: hidden;
+}
+.shell-section::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 60% 50%, rgba(255,107,0,.05) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.shell-layout {
+  display: grid; grid-template-columns: 1fr 1.2fr;
+  gap: 4rem; align-items: start;
+}
+
+.shell-info { position: relative; }
+.shell-info h2 { margin-bottom: 1rem; }
+.shell-info .s-desc { margin-bottom: 2rem; }
+
+.challenge-steps {
+  display: flex; flex-direction: column; gap: .75rem;
+  margin-bottom: 2rem;
+}
+.step {
+  display: flex; align-items: flex-start; gap: .9rem;
+  padding: .9rem 1rem; border-radius: 8px;
+  background: var(--white-04); border: 1px solid var(--white-08);
+  transition: border-color .2s, background .2s;
+}
+.step.completed { background: rgba(255,107,0,.08); border-color: rgba(255,107,0,.25); }
+.step.active { background: rgba(255,179,0,.07); border-color: rgba(255,179,0,.3); }
+.step-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--fm); font-weight: 700; font-size: .72rem;
+  flex-shrink: 0; transition: background .2s, color .2s;
+}
+.step-num-def { border: 1.5px solid var(--white-15); color: var(--white-40); }
+.step-num-ok { background: var(--orange); color: #000; }
+.step-num-act { background: var(--amber); color: #000; }
+.step-body {}
+.step-title { font-weight: 600; font-size: .88rem; margin-bottom: .2rem; }
+.step-hint { font-size: .78rem; color: var(--white-40); font-family: var(--fm); }
+
+.shell-score {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1rem 1.2rem; border-radius: 8px;
+  border: 1px solid rgba(255,107,0,.2);
+  background: rgba(255,107,0,.07);
+}
+.score-icon { font-size: 1.6rem; }
+.score-txt {}
+.score-val { font-family: var(--fh); font-weight: 800; font-size: 1.1rem; color: var(--orange); }
+.score-lbl { font-size: .76rem; color: var(--white-40); }
+
+/* TERMINAL */
+.terminal-wrap { position: relative; }
+
+.term-topbar {
+  background: #1A1A1A; border-radius: 12px 12px 0 0;
+  padding: .75rem 1rem;
+  display: flex; align-items: center; gap: .6rem;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.dot-r { width: 12px; height: 12px; border-radius: 50%; background: #FF5F57; }
+.dot-y { width: 12px; height: 12px; border-radius: 50%; background: #FFBD2E; }
+.dot-g { width: 12px; height: 12px; border-radius: 50%; background: #28CA41; }
+.term-title { font-family: var(--fm); font-size: .72rem; color: rgba(255,255,255,.35); margin-left: .5rem; }
+
+.terminal {
+  background: var(--term-bg);
+  border: 1px solid rgba(255,255,255,.06);
+  border-top: none; border-radius: 0 0 12px 12px;
+  padding: 1.4rem;
+  min-height: 440px;
+  font-family: var(--fm); font-size: .82rem; line-height: 1.7;
+  display: flex; flex-direction: column;
+  position: relative;
+}
+
+.term-output { flex: 1; overflow-y: auto; max-height: 340px; }
+.term-line { margin-bottom: .1rem; }
+.t-prompt { color: var(--orange); }
+.t-cmd { color: var(--white); }
+.t-out { color: var(--white-70); }
+.t-ok { color: var(--green-term); }
+.t-err { color: var(--red); }
+.t-info { color: var(--amber); }
+.t-sys { color: rgba(255,255,255,.25); }
+
+.term-input-row {
+  display: flex; align-items: center; gap: .4rem;
+  border-top: 1px solid rgba(255,255,255,.06);
+  padding-top: 1rem; margin-top: .5rem;
+}
+.term-prompt-label { color: var(--orange); white-space: nowrap; flex-shrink: 0; font-size: .82rem; }
+.term-input {
+  flex: 1; background: none; border: none; outline: none;
+  color: var(--white); font-family: var(--fm); font-size: .82rem;
+  caret-color: var(--orange);
+}
+.term-cursor {
+  display: inline-block; width: 8px; height: 14px;
+  background: var(--orange); animation: blink-cur .85s step-end infinite;
+  vertical-align: middle; flex-shrink: 0;
+}
+@keyframes blink-cur { 0%,100%{opacity:1} 50%{opacity:0} }
+
+.term-overlay {
+  position: absolute; inset: 0; border-radius: 0 0 12px 12px;
+  background: rgba(8,11,6,.7);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--fm); font-size: .9rem; color: var(--green-term);
+  text-align: center; padding: 2rem;
+  cursor: pointer; transition: opacity .3s;
+  backdrop-filter: blur(3px);
+}
+.term-overlay.hidden { opacity: 0; pointer-events: none; }
+
+.overlay-content { }
+.overlay-icon { font-size: 2.5rem; margin-bottom: .8rem; }
+.overlay-title { font-family: var(--fh); font-size: 1.1rem; font-weight: 800; color: var(--white); margin-bottom: .5rem; }
+.overlay-hint { font-size: .78rem; color: var(--white-40); line-height: 1.6; }
+
+.success-banner {
+  display: none; margin-top: 1rem;
+  background: rgba(77,255,145,.1); border: 1px solid rgba(77,255,145,.3);
+  border-radius: 8px; padding: 1rem 1.2rem;
+  font-family: var(--fm); font-size: .82rem; color: var(--green-term);
+  text-align: center;
+}
+.success-banner.show { display: block; }
+
+/* ── PORQUÊ ── */
+.porque { background: var(--bg3); }
+.pq-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.2rem; margin-top: 3rem;
+}
+.pq-card {
+  background: var(--bg2); border: 1px solid var(--white-08);
+  border-radius: 12px; padding: 1.6rem; transition: border-color .2s;
+}
+.pq-card:hover { border-color: rgba(255,107,0,.25); }
+.pq-icon { font-size: 1.9rem; margin-bottom: .9rem; display: block; }
+.pq-t { font-family: var(--fh); font-weight: 700; font-size: .95rem; margin-bottom: .4rem; }
+.pq-d { font-size: .82rem; color: var(--white-40); line-height: 1.65; }
+
+/* ── TESTEMUNHOS ── */
+.test-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.3rem; margin-top: 3rem;
+}
+.tc {
+  background: var(--bg3); border: 1px solid var(--white-08);
+  border-radius: 12px; padding: 1.6rem; position: relative;
+}
+.tc::before {
+  content: '"'; position: absolute; top: .8rem; right: 1.2rem;
+  font-size: 4rem; color: rgba(255,107,0,.12); font-family: var(--fh); line-height: 1;
+}
+.estrelas { color: var(--amber); font-size: .82rem; letter-spacing: 2px; margin-bottom: .9rem; }
+.tc-q { font-size: .88rem; color: var(--white-70); line-height: 1.75; font-style: italic; margin-bottom: 1.3rem; }
+.tc-a { display: flex; align-items: center; gap: .7rem; }
+.tc-av {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--orange), #8B3A00);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--fh); font-weight: 700; font-size: .8rem; color: var(--white); flex-shrink: 0;
+}
+.tc-nome { font-weight: 600; font-size: .86rem; }
+.tc-cargo { font-size: .73rem; color: var(--white-40); }
+
+/* ── FAQ ── */
+.faq-lista { max-width: 700px; margin: 3rem auto 0; display: flex; flex-direction: column; gap: .7rem; }
+.faq-item { background: var(--bg3); border: 1px solid var(--white-08); border-radius: 10px; overflow: hidden; }
+.faq-p {
+  padding: 1.1rem 1.3rem; font-weight: 600; font-size: .9rem;
+  cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+  user-select: none; transition: color .2s;
+}
+.faq-p:hover { color: var(--orange); }
+.faq-ch { transition: transform .3s; color: var(--white-40); }
+.faq-item.ab .faq-ch { transform: rotate(180deg); }
+.faq-r { max-height: 0; overflow: hidden; transition: max-height .35s ease, padding .2s; font-size: .86rem; color: var(--white-70); line-height: 1.7; }
+.faq-item.ab .faq-r { max-height: 300px; padding: 0 1.3rem 1.1rem; }
+
+/* ── CTA FINAL ── */
+.cta-final {
+  text-align: center; padding: 7rem 5%; position: relative; overflow: hidden;
+  background: var(--bg2);
+}
+.cta-final::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, rgba(255,107,0,.09) 0%, transparent 65%);
+  pointer-events: none;
+}
+.cta-final h2 { font-size: clamp(2.2rem, 4vw, 3.3rem); margin-bottom: .9rem; }
+.cta-final p { color: var(--white-70); font-size: 1rem; max-width: 480px; margin: 0 auto 2.4rem; }
+.cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.cta-nota { font-size: .76rem; color: var(--white-40); margin-top: 1rem; }
+
+/* ── RODAPÉ ── */
+footer {
+  position: relative; z-index: 1; border-top: 1px solid var(--white-08);
+  padding: 2rem 5%; display: flex; justify-content: space-between;
+  align-items: center; flex-wrap: wrap; gap: 1rem;
+}
+.footer-links { display: flex; gap: 1.3rem; }
+.footer-links a { color: var(--white-40); font-size: .8rem; text-decoration: none; transition: color .2s; }
+.footer-links a:hover { color: var(--orange); }
+.footer-copy { font-size: .76rem; color: var(--white-40); }
+
+/* ── MODAL LEAD ── */
+.modal-ov {
+  display: none; position: fixed; inset: 0; z-index: 600;
+  background: rgba(5,4,2,.88); backdrop-filter: blur(10px);
+  align-items: center; justify-content: center; padding: 1.5rem;
+}
+.modal-ov.open { display: flex; }
+
+.modal-box {
+  background: var(--bg3); border: 1px solid rgba(255,179,0,.3);
+  border-radius: 16px; padding: 2.5rem; max-width: 440px; width: 100%;
+  position: relative; box-shadow: 0 28px 80px rgba(0,0,0,.7);
+  animation: popIn .3s cubic-bezier(.34,1.56,.64,1) forwards;
+}
+@keyframes popIn { from{opacity:0;transform:scale(.9) translateY(10px)} to{opacity:1;transform:scale(1) translateY(0)} }
+.modal-close {
+  position: absolute; top: 1rem; right: 1rem;
+  background: none; border: none; color: var(--white-40);
+  font-size: 1.3rem; cursor: pointer; line-height: 1; transition: color .2s;
+}
+.modal-close:hover { color: var(--white); }
+.modal-icon { font-size: 2.4rem; margin-bottom: .9rem; }
+.modal-titulo { font-family: var(--fh); font-size: 1.45rem; font-weight: 800; margin-bottom: .5rem; line-height: 1.15; }
+.modal-sub { font-size: .88rem; color: var(--white-70); margin-bottom: 1.8rem; line-height: 1.65; }
+.lead-form { display: flex; flex-direction: column; gap: .8rem; }
+.lead-form label { font-size: .78rem; font-weight: 600; color: var(--white-70); display: block; margin-bottom: .25rem; }
+.lead-form input {
+  width: 100%; background: var(--bg2);
+  border: 1px solid rgba(255,179,0,.2); border-radius: 7px;
+  color: var(--white); font-family: var(--fb); font-size: .9rem;
+  padding: .78rem .95rem; outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+.lead-form input:focus { border-color: var(--amber); box-shadow: 0 0 0 3px rgba(255,179,0,.12); }
+.lead-form input::placeholder { color: var(--white-40); }
+.btn-obter {
+  width: 100%; background: var(--amber); color: #000;
+  font-family: var(--fh); font-weight: 800; font-size: .98rem;
+  padding: .88rem; border-radius: 7px; border: none; cursor: pointer;
+  margin-top: .3rem; transition: background .2s, transform .15s, box-shadow .15s;
+}
+.btn-obter:hover { background: #ffc333; transform: translateY(-1px); box-shadow: 0 6px 22px rgba(255,179,0,.35); }
+.modal-nota { font-size: .7rem; color: var(--white-40); text-align: center; margin-top: .6rem; }
+
+.modal-success { display: none; text-align: center; }
+.modal-success.show { display: block; }
+.form-wrap.hide { display: none; }
+.suc-icon { font-size: 3rem; margin-bottom: 1rem; }
+.suc-titulo { font-family: var(--fh); font-size: 1.4rem; font-weight: 800; margin-bottom: .6rem; }
+.suc-sub { font-size: .88rem; color: var(--white-70); line-height: 1.7; }
+
+/* ── SCROLL ANIM ── */
+.fade-up { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+.fade-up.v { opacity: 1; transform: translateY(0); }
+
+/* ── MOBILE ── */
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; padding: 7rem 5% 4rem; }
+  .hero::after { display: none; }
+  .float-pill { display: none; }
+  .shell-layout { grid-template-columns: 1fr; }
+  .cursos-grid { grid-template-columns: 1fr; }
+  .vant-grid { grid-template-columns: repeat(2, 1fr); }
+  nav a:not(.nav-cta) { display: none; }
+}
+@media (max-width: 560px) {
+  .vant-grid { grid-template-columns: 1fr; }
+  .vant-item { border-right: none; }
+  .vant-item:nth-child(n) { border-right: none; }
+  .vant-item:nth-last-child(-n+1) { border-bottom: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ TOPBAR ══ -->
+<header class="topbar">
+  <a href="#" class="logo-wrap">
+    <div class="logo-icon">SF</div>
+    <div class="logo-text">Santinfortec Academy<span>Certificações Cisco</span></div>
+  </a>
+  <nav>
+    <a href="#cursos">Cursos</a>
+    <a href="#shell">Experimenta</a>
+    <a href="#porque">Porquê nós</a>
+    <a href="#faq">FAQ</a>
+    <a href="https://hotmart.com/SEU-LINK-AQUI" target="_blank" class="nav-cta">Inscrever agora</a>
+  </nav>
+</header>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-bg-glow hg1"></div>
+  <div class="hero-bg-glow hg2"></div>
+
+  <div class="hero-left">
+    <div class="eyebrow"><span class="eyebrow-dot"></span>100 % em Português Europeu</div>
+    <h1>
+      O teu caminho<br>
+      para o <span class="hl">CCNA</span><br>
+      <span class="dim">começa aqui.</span>
+    </h1>
+    <p class="hero-desc">
+      A academia de referência em certificações Cisco para o mercado lusófono. Mais de 50 laboratórios reais em Packet Tracer, mentoria directa e aprovação garantida.
+    </p>
+    <div class="hero-btns">
+      <a href="https://hotmart.com/SEU-LINK-AQUI" target="_blank" class="btn-primary">
+        Inscrever no CCNA <span class="arr">→</span>
+      </a>
+      <button class="btn-ghost" onclick="abrirModal()">🎁 Curso gratuito</button>
+    </div>
+    <div class="hero-nums">
+      <div class="num-item"><span class="num-val">2<em>400</em>+</span><span class="num-lbl">Alunos certificados</span></div>
+      <div class="num-item"><span class="num-val">97<em>%</em></span><span class="num-lbl">Taxa de aprovação</span></div>
+      <div class="num-item"><span class="num-val">50<em>+</em></span><span class="num-lbl">Labs Packet Tracer</span></div>
+      <div class="num-item"><span class="num-val">4<em>.9</em>★</span><span class="num-lbl">Avaliação média</span></div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="float-pill fp-top"><span class="fp-pulse"></span>152 alunos online agora</div>
+    <div class="cert-card">
+      <div class="cc-head">
+        <div class="cc-logo-box">CISCO</div>
+        <div>
+          <div class="cc-name">CCNA 200-301</div>
+          <div class="cc-sub">O teu progresso actual</div>
+        </div>
+      </div>
+      <div class="cc-prog">
+        <div class="cc-prog-row"><span>Módulos completos</span><span>74%</span></div>
+        <div class="pbar"><div class="pfill" id="pf"></div></div>
+      </div>
+      <div class="cc-mods">
+        <div class="cc-mod"><span class="mod-dot dot-ok">✓</span>Fundamentos de Redes</div>
+        <div class="cc-mod"><span class="mod-dot dot-ok">✓</span>Switching &amp; VLANs</div>
+        <div class="cc-mod"><span class="mod-dot dot-ok">✓</span>Routing Estático &amp; Dinâmico</div>
+        <div class="cc-mod act"><span class="mod-dot dot-go">▶</span><span style="color:var(--orange)">OSPF &amp; EIGRP</span></div>
+        <div class="cc-mod dim"><span class="mod-dot dot-no"></span>Segurança &amp; ACLs</div>
+        <div class="cc-mod dim"><span class="mod-dot dot-no"></span>Automação &amp; SD-WAN</div>
+      </div>
+    </div>
+    <div class="float-pill fp-bot">
+      <span style="font-size:1rem">🏆</span>
+      <div><div style="font-weight:600;font-size:.78rem">Mário Costa</div><div style="font-size:.68rem;color:var(--white-40)">Acabou de ser certificado!</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ LOGOS ══ -->
+<div class="logos-strip">
+  <p class="logos-label">Os nossos alunos trabalham em empresas como</p>
+  <div class="logos-row">
+    <span>NOS</span><span>Vodafone</span><span>Altice</span>
+    <span>EDP</span><span>BCP</span><span>Accenture</span><span>Novabase</span>
+  </div>
+</div>
+
+<!-- ══ SEPARADOR DE VANTAGENS ══ -->
+<div class="vantagens-section fade-up">
+  <div class="vant-header">
+    <p class="s-label">Porque somos diferentes</p>
+    <h2 style="margin-bottom:0">A academia que os profissionais escolhem</h2>
+  </div>
+  <div class="vant-grid">
+    <div class="vant-item">
+      <span class="vant-num">50+</span>
+      <div class="vant-titulo">Labs em Packet Tracer</div>
+      <div class="vant-desc">Mais de 50 laboratórios práticos cuidadosamente desenhados para replicar cenários reais de empresas.</div>
+    </div>
+    <div class="vant-item">
+      <span class="vant-num">97%</span>
+      <div class="vant-titulo">Taxa de aprovação</div>
+      <div class="vant-desc">Quase todos os nossos alunos passam no exame à primeira tentativa. O método funciona.</div>
+    </div>
+    <div class="vant-item">
+      <span class="vant-num">24h</span>
+      <div class="vant-titulo">Resposta do instrutor</div>
+      <div class="vant-desc">Nenhuma dúvida fica por responder. Garantimos resposta em menos de 24 horas nos dias úteis.</div>
+    </div>
+    <div class="vant-item">
+      <span class="vant-num">∞</span>
+      <div class="vant-titulo">Acesso vitalício</div>
+      <div class="vant-desc">Pagas uma vez e tens acesso para sempre, incluindo todas as actualizações ao temário.</div>
+    </div>
+    <div class="vant-item">
+      <span class="vant-num">🇵🇹</span>
+      <div class="vant-titulo">100 % em PT-PT</div>
+      <div class="vant-desc">Conteúdo criado e lecionado em português europeu, com exemplos do mercado nacional.</div>
+    </div>
+    <div class="vant-item">
+      <span class="vant-num">30</span>
+      <div class="vant-titulo">Dias de garantia</div>
+      <div class="vant-desc">Não ficaste satisfeito? Devolvemos 100 % do valor sem perguntas incómodas.</div>
+    </div>
+    <div class="vant-item">
+      <span class="vant-num">6</span>
+      <div class="vant-titulo">Simulados completos</div>
+      <div class="vant-desc">Exames simulados no formato exacto do Pearson VUE para te preparares sem surpresas.</div>
+    </div>
+    <div class="vant-item">
+      <span class="vant-num">🎯</span>
+      <div class="vant-titulo">Foco total no exame</div>
+      <div class="vant-desc">Cada aula, cada lab e cada simulado foi desenhado com um único objectivo: aprovares no CCNA.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CURSOS ══ -->
+<section id="cursos">
+  <div class="cursos-head">
+    <div>
+      <p class="s-label">Os nossos cursos</p>
+      <h2>Começa de graça.<br>Vai até ao fim com o CCNA.</h2>
+    </div>
+    <p class="s-desc">Dois percursos para todos os níveis — desde quem parte do zero até ao profissional que quer a certificação oficial Cisco.</p>
+  </div>
+  <div class="cursos-grid">
+
+    <!-- GRATUITO -->
+    <div class="card free fade-up">
+      <div class="card-head">
+        <span class="pill pill-free">Gratuito</span>
+        <span class="badge-new">✨ Novo</span>
+        <span class="card-icon">🌱</span>
+        <div class="card-nome">Introdução às Redes Informáticas</div>
+        <div class="card-desc">Nunca configuraste um router? Este é o teu ponto de partida. Aprende os fundamentos sem jargão desnecessário e com laboratórios práticos incluídos.</div>
+        <ul class="card-lista">
+          <li>O que é uma rede e como funciona</li>
+          <li>Endereçamento IP e sub-redes (IPv4)</li>
+          <li>Routers, switches e hubs — diferenças práticas</li>
+          <li>Modelos OSI e TCP/IP explicados de forma simples</li>
+          <li>5 laboratórios em Cisco Packet Tracer incluídos</li>
+        </ul>
+      </div>
+      <div class="card-meta">
+        <span>📹 8 horas</span><span>🧪 5 laboratórios</span><span>📄 Acesso imediato</span>
+      </div>
+      <div class="card-foot">
+        <span class="preco-free">GRÁTIS</span>
+        <button class="btn-lead" onclick="abrirModal()">Obter acesso gratuito</button>
+      </div>
+    </div>
+
+    <!-- CCNA -->
+    <div class="card paid fade-up" style="transition-delay:.1s">
+      <div class="card-head">
+        <span class="pill pill-ccna">CCNA 200-301</span>
+        <span class="badge-hot">⚡ Mais popular</span>
+        <span class="card-icon">🌐</span>
+        <div class="card-nome">CCNA Completo — Da teoria à certificação</div>
+        <div class="card-desc">Cobre a totalidade do temário do CCNA 200-301 com mais de 50 laboratórios em Packet Tracer, hardware físico, simulados no formato Pearson VUE e acompanhamento directo do instrutor.</div>
+        <ul class="card-lista">
+          <li>120+ horas de aulas gravadas em HD</li>
+          <li><strong style="color:var(--orange)">Mais de 50 laboratórios em Packet Tracer + GNS3 + hardware real</strong></li>
+          <li>6 simulados completos no formato do exame real</li>
+          <li>Sessões Q&amp;A ao vivo semanais com o instrutor</li>
+          <li>Grupo privado no Discord com suporte dedicado</li>
+          <li>Acesso vitalício + todas as actualizações futuras</li>
+          <li>Certificado de conclusão + apoio pós-certificação</li>
+        </ul>
+      </div>
+      <div class="card-meta">
+        <span>📹 120+ horas</span><span>🧪 50+ labs</span><span>📄 6 simulados</span>
+      </div>
+      <div class="card-foot">
+        <div><span class="preco">€197</span><span class="preco-old">€397</span></div>
+        <a href="https://hotmart.com/SEU-LINK-AQUI" target="_blank" class="btn-hotmart">Inscrever na Hotmart →</a>
+      </div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:2rem;font-size:.78rem;color:var(--white-40)">
+    ✅&nbsp;Garantia de 30 dias &nbsp;·&nbsp; ✅&nbsp;Factura emitida &nbsp;·&nbsp; ✅&nbsp;Pagamento seguro via Hotmart
+  </div>
+</section>
+
+<!-- ══ CISCO SHELL INTERATIVA ══ -->
+<section id="shell" class="shell-section">
+  <div class="shell-layout">
+    <div class="shell-info">
+      <p class="s-label">Experimenta agora</p>
+      <h2>Configura um<br>router Cisco<br>aqui mesmo</h2>
+      <p class="s-desc" style="margin-bottom:2rem">Sem instalar nada. Experimenta uma consola Cisco real directamente no teu browser. Completa os três desafios e vê como é trabalhar com IOS.</p>
+
+      <div class="challenge-steps" id="steps">
+        <div class="step" id="step1">
+          <div class="step-num step-num-act" id="sn1">1</div>
+          <div class="step-body">
+            <div class="step-title">Definir o hostname</div>
+            <div class="step-hint">hostname SantinfortecRouter</div>
+          </div>
+        </div>
+        <div class="step" id="step2">
+          <div class="step-num step-num-def" id="sn2">2</div>
+          <div class="step-body">
+            <div class="step-title">Configurar o endereço IP</div>
+            <div class="step-hint">ip address 192.168.1.1 255.255.255.0</div>
+          </div>
+        </div>
+        <div class="step" id="step3">
+          <div class="step-num step-num-def" id="sn3">3</div>
+          <div class="step-body">
+            <div class="step-title">Definir a password de enable</div>
+            <div class="step-hint">enable secret Cisco@2025</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="shell-score">
+        <div class="score-icon">🏅</div>
+        <div class="score-txt">
+          <div class="score-val" id="scoreVal">0 / 3 desafios</div>
+          <div class="score-lbl">Completa os 3 para ganhar o teu badge de iniciante</div>
+        </div>
+      </div>
+
+      <div class="success-banner" id="successBanner">
+        🎉 &nbsp;Parabéns! Configuraste o teu primeiro router Cisco.<br>
+        <span style="font-size:.75rem;opacity:.8">Pronto para avançar para o CCNA completo?</span>
+      </div>
+    </div>
+
+    <div class="terminal-wrap">
+      <div class="term-topbar">
+        <div class="dot-r"></div><div class="dot-y"></div><div class="dot-g"></div>
+        <span class="term-title">Router Cisco IOS — Console</span>
+      </div>
+      <div class="terminal" id="terminal">
+        <div class="term-output" id="termOut"></div>
+        <div class="term-input-row">
+          <span class="term-prompt-label" id="termPrompt">Router></span>
+          <input type="text" class="term-input" id="termInput" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="escreve um comando...">
+          <div class="term-cursor"></div>
+        </div>
+        <div class="term-overlay" id="termOverlay" onclick="iniciarShell()">
+          <div class="overlay-content">
+            <div class="overlay-icon">⌨️</div>
+            <div class="overlay-title">Clica para iniciares a consola</div>
+            <p class="overlay-hint">Simula a linha de comandos de um router Cisco IOS<br>e completa os desafios</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PORQUÊ ══ -->
+<section id="porque" class="porque">
+  <div style="text-align:center;max-width:560px;margin:0 auto">
+    <p class="s-label">Porquê a Santinfortec Academy</p>
+    <h2>Feito por quem<br>vive e respira redes</h2>
+    <p class="s-desc" style="margin:0 auto">Os nossos instrutores são engenheiros com certificações CCIE activos no mercado — não apenas formadores. Ensinamos o que fazemos todos os dias.</p>
+  </div>
+  <div class="pq-grid fade-up">
+    <div class="pq-card"><span class="pq-icon">🇵🇹</span><div class="pq-t">100 % em Português Europeu</div><div class="pq-d">Aprende no teu idioma, com exemplos do contexto nacional. Sem legendas nem sotaques difíceis de perceber.</div></div>
+    <div class="pq-card"><span class="pq-icon">🖥️</span><div class="pq-t">Hardware Cisco Real</div><div class="pq-d">Acesso remoto a routers e switches Cisco físicos — não apenas simuladores.</div></div>
+    <div class="pq-card"><span class="pq-icon">📞</span><div class="pq-t">Mentoria Directa</div><div class="pq-d">Sessões semanais ao vivo com Q&amp;A. Resposta no Discord em menos de 24 horas nos dias úteis.</div></div>
+    <div class="pq-card"><span class="pq-icon">♾️</span><div class="pq-t">Acesso Vitalício</div><div class="pq-d">Pagas uma vez e tens acesso para sempre, com todas as actualizações ao temário do exame.</div></div>
+    <div class="pq-card"><span class="pq-icon">✅</span><div class="pq-t">Garantia de 30 Dias</div><div class="pq-d">Não ficaste satisfeito? Devolvemos 100 % do valor. Sem formulários, sem perguntas.</div></div>
+    <div class="pq-card"><span class="pq-icon">🎯</span><div class="pq-t">Foco no Exame Real</div><div class="pq-d">Simulados no formato exacto do Pearson VUE. No dia do exame não há surpresas.</div></div>
+  </div>
+</section>
+
+<!-- ══ TESTEMUNHOS ══ -->
+<section id="testemunhos">
+  <div style="text-align:center">
+    <p class="s-label">Casos de sucesso</p>
+    <h2>Resultados reais,<br>pessoas reais</h2>
+  </div>
+  <div class="test-grid fade-up">
+    <div class="tc">
+      <div class="estrelas">★★★★★</div>
+      <p class="tc-q">«Passei no CCNA à primeira tentativa após 3 meses de estudo com a Santinfortec Academy. Os laboratórios em Packet Tracer foram a diferença — cheguei ao exame a sentir que já tinha feito tudo aquilo antes.»</p>
+      <div class="tc-a"><div class="tc-av">JC</div><div><div class="tc-nome">João Carvalho</div><div class="tc-cargo">Network Engineer · NOS, Porto</div></div></div>
+    </div>
+    <div class="tc">
+      <div class="estrelas">★★★★★</div>
+      <p class="tc-q">«Comecei pelo curso gratuito só para experimentar. Fiquei tão impressionado que me inscrevi no CCNA no mesmo dia. Dois meses depois estava certificado e com uma nova proposta de emprego na mão.»</p>
+      <div class="tc-a"><div class="tc-av">RM</div><div><div class="tc-nome">Rui Mendes</div><div class="tc-cargo">Network Admin · EDP, Coimbra</div></div></div>
+    </div>
+    <div class="tc">
+      <div class="estrelas">★★★★★</div>
+      <p class="tc-q">«Em inglês nunca consegui terminar um curso de redes. Aqui, em português e com exemplos do mercado nacional, tudo fez sentido. O instrutor responde sempre — faz toda a diferença.»</p>
+      <div class="tc-a"><div class="tc-av">AS</div><div><div class="tc-nome">Ana Silva</div><div class="tc-cargo">Sysadmin · Altice, Lisboa</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FAQ ══ -->
+<section id="faq" style="background:var(--bg2)">
+  <div style="text-align:center">
+    <p class="s-label">Perguntas frequentes</p>
+    <h2>Tens dúvidas?<br>Temos respostas.</h2>
+  </div>
+  <div class="faq-lista">
+    <div class="faq-item"><div class="faq-p">Preciso de experiência prévia para começar? <span class="faq-ch">▾</span></div><div class="faq-r">Não! O curso gratuito de Introdução às Redes foi criado especificamente para quem parte do zero. Se souberes ligar um computador e tiveres vontade de aprender, já tens tudo o que precisas.</div></div>
+    <div class="faq-item"><div class="faq-p">O curso gratuito é mesmo gratuito? O que está incluído? <span class="faq-ch">▾</span></div><div class="faq-r">Sim, é completamente gratuito. Basta inserires o teu nome e e-mail para teres acesso imediato a 8 horas de conteúdo e 5 laboratórios em Packet Tracer. Não pedimos dados de cartão de crédito.</div></div>
+    <div class="faq-item"><div class="faq-p">Em quanto tempo consigo a certificação CCNA? <span class="faq-ch">▾</span></div><div class="faq-r">A maioria dos alunos a tempo parcial (1 a 2 horas por dia) obtém o CCNA entre 3 a 4 meses. Com mais dedicação, é possível em 6 semanas. O acesso é vitalício — estudas ao teu ritmo.</div></div>
+    <div class="faq-item"><div class="faq-p">Os laboratórios funcionam no meu computador? <span class="faq-ch">▾</span></div><div class="faq-r">Sim. Utilizamos o Cisco Packet Tracer (gratuito para estudantes Cisco NetAcad) que funciona em Windows, Mac e Linux. Tens também acesso remoto a hardware físico para laboratórios avançados.</div></div>
+    <div class="faq-item"><div class="faq-p">O conteúdo é actualizado quando a Cisco muda o temário? <span class="faq-ch">▾</span></div><div class="faq-r">Sim, sempre e sem custo adicional. Monitorizamos todas as actualizações da Cisco e actualizamos o conteúdo para todos os alunos inscritos, independentemente de quando compraram.</div></div>
+    <div class="faq-item"><div class="faq-p">A empresa pode pagar a formação e receber factura? <span class="faq-ch">▾</span></div><div class="faq-r">Claro. Emitimos factura com todos os dados fiscais necessários. Contacta-nos para condições especiais para grupos ou empresas.</div></div>
+    <div class="faq-item"><div class="faq-p">Como funciona a garantia de 30 dias? <span class="faq-ch">▾</span></div><div class="faq-r">Se nos primeiros 30 dias não ficares satisfeito, devolvemos 100 % do valor pago — sem perguntas, sem burocracia. O risco é completamente nosso.</div></div>
+  </div>
+</section>
+
+<!-- ══ CTA FINAL ══ -->
+<section id="inscreve" class="cta-final">
+  <p class="s-label">Começa hoje</p>
+  <h2>A tua carreira em redes<br>começa com uma <span style="color:var(--orange)">decisão</span></h2>
+  <p>Junta-te a mais de 2&nbsp;400 profissionais que já transformaram a carreira com a Santinfortec Academy. Ou começa de graça — sem compromissos.</p>
+  <div class="cta-btns">
+    <a href="https://hotmart.com/SEU-LINK-AQUI" target="_blank" class="btn-primary">
+      Inscrever no CCNA agora <span class="arr">→</span>
+    </a>
+    <button class="btn-ghost" onclick="abrirModal()">🎁 Quero o curso gratuito</button>
+  </div>
+  <p class="cta-nota">✓ Garantia de 30 dias &nbsp;·&nbsp; ✓ Acesso vitalício &nbsp;·&nbsp; ✓ Mais de 50 labs em Packet Tracer</p>
+</section>
+
+<!-- ══ RODAPÉ ══ -->
+<footer>
+  <a href="#" class="logo-wrap">
+    <div class="logo-icon">SF</div>
+    <div class="logo-text">Santinfortec Academy<span>Certificações Cisco</span></div>
+  </a>
+  <div class="footer-links">
+    <a href="#">Política de Privacidade</a>
+    <a href="#">Termos de Serviço</a>
+    <a href="#">Contacto</a>
+  </div>
+  <p class="footer-copy">© 2025 Santinfortec Academy. Todos os direitos reservados.</p>
+</footer>
+
+<!-- ══ MODAL LEAD ══ -->
+<div class="modal-ov" id="modal" onclick="fecharFundo(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="fecharModal()">✕</button>
+    <div class="form-wrap" id="formWrap">
+      <div class="modal-icon">🎁</div>
+      <div class="modal-titulo">Acesso gratuito — Introdução às Redes</div>
+      <p class="modal-sub">Insere os teus dados e recebe o link de acesso imediatamente no teu e-mail. Sem spam. Podes cancelar a qualquer momento.</p>
+      <div class="lead-form">
+        <div><label for="inp-nome">Nome</label><input type="text" id="inp-nome" placeholder="O teu nome" autocomplete="given-name"></div>
+        <div><label for="inp-email">E-mail</label><input type="email" id="inp-email" placeholder="exemplo@email.com" autocomplete="email"></div>
+        <button class="btn-obter" onclick="submeter()">Obter acesso gratuito agora →</button>
+      </div>
+      <p class="modal-nota">🔒 Os teus dados estão seguros. Nunca partilhamos informações com terceiros.</p>
+    </div>
+    <div class="modal-success" id="successWrap">
+      <div class="suc-icon">🎉</div>
+      <div class="suc-titulo">Acesso enviado com sucesso!</div>
+      <p class="suc-sub">Enviámos o link de acesso para o teu e-mail. Verifica a caixa de entrada (e a pasta de spam, só por precaução).<br><br>Bons estudos — estamos aqui para o que precisares! 🚀</p>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── BARRA DE PROGRESSO ── */
+window.addEventListener('load', () => {
+  setTimeout(() => { document.getElementById('pf').style.width = '74%'; }, 700);
+});
+
+/* ── FAQ ── */
+document.querySelectorAll('.faq-p').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('ab');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('ab'));
+    if (!isOpen) item.classList.add('ab');
+  });
+});
+
+/* ── SCROLL FADE ── */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('v'); });
+}, { threshold: 0.07 });
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+/* ── MODAL ── */
+function abrirModal() { document.getElementById('modal').classList.add('open'); document.body.style.overflow = 'hidden'; }
+function fecharModal() { document.getElementById('modal').classList.remove('open'); document.body.style.overflow = ''; }
+function fecharFundo(e) { if (e.target === document.getElementById('modal')) fecharModal(); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') fecharModal(); });
+
+function submeter() {
+  const nome  = document.getElementById('inp-nome').value.trim();
+  const email = document.getElementById('inp-email').value.trim();
+  if (!nome)              { errar('inp-nome', 'Por favor, insere o teu nome.'); return; }
+  if (!validEmail(email)) { errar('inp-email', 'Por favor, insere um e-mail válido.'); return; }
+  // INTEGRAÇÃO: substitui por Mailchimp / ActiveCampaign / webhook Make/Zapier
+  console.log('Lead capturada ✅', { nome, email });
+  document.getElementById('formWrap').classList.add('hide');
+  document.getElementById('successWrap').classList.add('show');
+}
+function validEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
+function errar(id, msg) {
+  const el = document.getElementById(id);
+  el.style.borderColor = '#FF3B3B'; el.style.boxShadow = '0 0 0 3px rgba(255,59,59,.15)';
+  el.placeholder = msg; el.focus();
+  setTimeout(() => { el.style.borderColor = ''; el.style.boxShadow = ''; el.placeholder = id === 'inp-nome' ? 'O teu nome' : 'exemplo@email.com'; }, 3000);
+}
+
+/* ══════════════════════════════════════
+   CISCO IOS SHELL SIMULATOR
+══════════════════════════════════════ */
+const termOut    = document.getElementById('termOut');
+const termInput  = document.getElementById('termInput');
+const termPrompt = document.getElementById('termPrompt');
+const overlay    = document.getElementById('termOverlay');
+const scoreVal   = document.getElementById('scoreVal');
+const sBanner    = document.getElementById('successBanner');
+
+let state = {
+  mode: 'user',        // user | enable | config | if_config
+  hostname: 'Router',
+  ipSet: false,
+  passSet: false,
+  ifActive: null,
+  score: 0,
+  step1done: false,
+  step2done: false,
+  step3done: false,
+  started: false,
+  history: [],
+  histIdx: -1,
+};
+
+function prompt() {
+  const h = state.hostname;
+  if (state.mode === 'user')      return h + '>';
+  if (state.mode === 'enable')    return h + '#';
+  if (state.mode === 'config')    return h + '(config)#';
+  if (state.mode === 'if_config') return h + '(config-if)#';
+  return h + '>';
+}
+
+function print(html, cls) {
+  const d = document.createElement('div');
+  d.className = 'term-line';
+  d.innerHTML = `<span class="${cls||'t-out'}">${html}</span>`;
+  termOut.appendChild(d);
+  termOut.scrollTop = termOut.scrollHeight;
+}
+
+function printCmd(p, cmd) {
+  const d = document.createElement('div');
+  d.className = 'term-line';
+  d.innerHTML = `<span class="t-prompt">${p} </span><span class="t-cmd">${cmd}</span>`;
+  termOut.appendChild(d);
+  termOut.scrollTop = termOut.scrollHeight;
+}
+
+function iniciarShell() {
+  overlay.classList.add('hidden');
+  state.started = true;
+  termInput.focus();
+  print('', '');
+  print('Cisco IOS Software, Version 15.9(3)M5', 't-sys');
+  print('Copyright (c) 1986-2025 by Cisco Systems, Inc.', 't-sys');
+  print('', '');
+  print('🖥️  <span style="color:var(--amber)">Santinfortec Academy — Simulador IOS</span>', '');
+  print('', '');
+  print('Bem-vindo ao exercício de configuração básica de um router Cisco.', 't-info');
+  print('Completa os 3 desafios indicados à esquerda.', 't-info');
+  print('', '');
+  print('💡 Começa por escreveres: <span style="color:var(--orange)">enable</span>', '');
+  print('', '');
+  termPrompt.textContent = prompt();
+}
+
+function processCmd(raw) {
+  const cmd = raw.trim();
+  if (!cmd) return;
+
+  // histórico
+  state.history.unshift(cmd);
+  state.histIdx = -1;
+
+  printCmd(prompt(), cmd);
+
+  const lower = cmd.toLowerCase();
+  const parts = cmd.split(/\s+/);
+  const p0 = parts[0]?.toLowerCase();
+
+  /* ── USER MODE ── */
+  if (state.mode === 'user') {
+    if (p0 === 'enable') {
+      state.mode = 'enable';
+      print('', '');
+    } else if (p0 === 'exit' || p0 === 'quit') {
+      print('Con0 is now available', 't-sys');
+    } else {
+      print(`% Comando '${cmd}' inválido no modo User EXEC.`, 't-err');
+      print('  Tenta: enable', 't-info');
+    }
+    termPrompt.textContent = prompt();
+    return;
+  }
+
+  /* ── ENABLE MODE ── */
+  if (state.mode === 'enable') {
+    if (lower === 'configure terminal' || lower === 'conf t' || lower === 'conf ter') {
+      state.mode = 'config';
+      print('Enter configuration commands, one per line.  End with CNTL/Z.', 't-sys');
+    } else if (lower === 'exit' || lower === 'disable') {
+      state.mode = 'user';
+    } else if (lower === 'show running-config' || lower === 'sh run') {
+      showRunning();
+    } else if (lower === 'show ip interface brief' || lower === 'sh ip int br') {
+      showIpBrief();
+    } else if (p0 === 'enable') {
+      print('% Já estás em modo Privilegiado.', 't-info');
+    } else {
+      print(`% Comando '${parts[0]}' inválido ou incompleto.`, 't-err');
+      print('  Tenta: configure terminal', 't-info');
+    }
+    termPrompt.textContent = prompt();
+    return;
+  }
+
+  /* ── CONFIG MODE ── */
+  if (state.mode === 'config') {
+    if (p0 === 'hostname') {
+      const novoNome = parts[1];
+      if (!novoNome) { print('% Falta o nome. Exemplo: hostname SantinfortecRouter', 't-err'); }
+      else {
+        state.hostname = novoNome;
+        print(`✅ Hostname alterado para: <span style="color:var(--green-term)">${novoNome}</span>`, '');
+        if (!state.step1done) {
+          state.step1done = true;
+          state.score++;
+          updateStep(1, 'ok');
+          updateScore();
+          print('', '');
+          print('🏅 <span style="color:var(--amber)">Desafio 1 completo! Agora define o IP da interface.</span>', '');
+          print('   Tenta: <span style="color:var(--orange)">interface GigabitEthernet0/0</span>', '');
+          updateStep(2, 'act');
+        }
+      }
+    } else if (p0 === 'interface' || p0 === 'int') {
+      const iface = parts.slice(1).join(' ');
+      if (!iface) { print('% Especifica a interface. Ex: interface GigabitEthernet0/0', 't-err'); }
+      else {
+        state.mode = 'if_config';
+        state.ifActive = iface;
+        print(`Configurando interface <span style="color:var(--orange)">${iface}</span>`, 't-sys');
+      }
+    } else if (lower.startsWith('enable secret') || lower.startsWith('enable password')) {
+      const pass = parts.slice(2).join(' ');
+      if (!pass) { print('% Falta a password. Exemplo: enable secret Cisco@2025', 't-err'); }
+      else {
+        print(`✅ Password de enable configurada.`, 't-ok');
+        if (!state.step3done && state.step1done && state.step2done) {
+          state.step3done = true;
+          state.score++;
+          updateStep(3, 'ok');
+          updateScore();
+          print('', '');
+          print('🎉 <span style="color:var(--green-term)">Parabéns! Configuraste com sucesso o teu primeiro router Cisco!</span>', '');
+          print('', '');
+          print('   Podes ver a configuração com: <span style="color:var(--orange)">end</span> → <span style="color:var(--orange)">show running-config</span>', '');
+          sBanner.classList.add('show');
+        } else if (!state.step3done) {
+          state.passSet = true;
+          print('', '');
+          if (!state.step1done) print('⚠️  Ainda tens de completar o desafio 1 (hostname).', 't-info');
+          if (!state.step2done) print('⚠️  Ainda tens de completar o desafio 2 (endereço IP).', 't-info');
+        }
+      }
+    } else if (lower === 'end' || lower === 'exit') {
+      if (lower === 'end') { state.mode = 'enable'; print('%LINEPROTO-5-UPDOWN: Returning to privileged EXEC mode.', 't-sys'); }
+      else { state.mode = 'enable'; }
+    } else if (lower === 'no shutdown' || lower === 'no shut') {
+      print('% Este comando é usado dentro de uma interface.', 't-info');
+      print('  Tenta: interface GigabitEthernet0/0', 't-info');
+    } else {
+      print(`% Comando '${parts[0]}' inválido no modo de configuração.`, 't-err');
+      print('  Comandos disponíveis: hostname, interface, enable secret, end', 't-info');
+    }
+    termPrompt.textContent = prompt();
+    return;
+  }
+
+  /* ── INTERFACE CONFIG MODE ── */
+  if (state.mode === 'if_config') {
+    if (lower.startsWith('ip address')) {
+      const ipParts = parts.slice(2);
+      if (ipParts.length < 2) {
+        print('% Sintaxe: ip address <endereço> <máscara>', 't-err');
+        print('  Exemplo: ip address 192.168.1.1 255.255.255.0', 't-info');
+      } else {
+        const ip = ipParts[0]; const mask = ipParts[1];
+        if (!validIP(ip) || !validIP(mask)) {
+          print('% Endereço IP ou máscara inválidos.', 't-err');
+        } else {
+          state.ipSet = true;
+          print(`✅ IP <span style="color:var(--green-term)">${ip}</span> máscara <span style="color:var(--green-term)">${mask}</span> configurados em <span style="color:var(--orange)">${state.ifActive}</span>`, '');
+          if (!state.step2done && state.step1done) {
+            state.step2done = true;
+            state.score++;
+            updateStep(2, 'ok');
+            updateScore();
+            print('', '');
+            print('🏅 <span style="color:var(--amber)">Desafio 2 completo! Agora activa a interface e define a password.</span>', '');
+            print('   Tenta: <span style="color:var(--orange)">no shutdown</span> e depois <span style="color:var(--orange)">exit</span> → <span style="color:var(--orange)">enable secret Cisco@2025</span>', '');
+            updateStep(3, 'act');
+          }
+        }
+      }
+    } else if (lower === 'no shutdown' || lower === 'no shut') {
+      print(`%LINK-5-CHANGED: Interface ${state.ifActive}, changed state to up`, 't-ok');
+      print(`%LINEPROTO-5-UPDOWN: Line protocol on Interface ${state.ifActive}, changed state to up`, 't-ok');
+    } else if (lower === 'exit') {
+      state.mode = 'config';
+      state.ifActive = null;
+      print('', '');
+    } else if (lower === 'end') {
+      state.mode = 'enable';
+      state.ifActive = null;
+      print('%LINEPROTO-5-UPDOWN: Returning to privileged EXEC mode.', 't-sys');
+    } else if (lower.startsWith('ip addr')) {
+      print('% Comando incompleto. Usa: ip address <IP> <máscara>', 't-err');
+    } else {
+      print(`% Comando '${parts[0]}' inválido nesta interface.`, 't-err');
+      print('  Comandos: ip address, no shutdown, exit, end', 't-info');
+    }
+    termPrompt.textContent = prompt();
+    return;
+  }
+}
+
+function showRunning() {
+  print('', '');
+  print('Building configuration...', 't-sys');
+  print('', '');
+  print('Current configuration:', 't-out');
+  print('!', 't-sys');
+  print(`hostname ${state.hostname}`, 't-cmd');
+  print('!', 't-sys');
+  if (state.passSet || state.step3done) print('enable secret 5 $1$Cisco@2025', 't-cmd');
+  print('!', 't-sys');
+  if (state.ipSet) {
+    print('interface GigabitEthernet0/0', 't-cmd');
+    print(' ip address 192.168.1.1 255.255.255.0', 't-cmd');
+    print(' no shutdown', 't-cmd');
+    print('!', 't-sys');
+  }
+  print('end', 't-cmd');
+  print('', '');
+}
+
+function showIpBrief() {
+  print('', '');
+  print('Interface                  IP-Address      OK? Method Status                Protocol', 't-out');
+  if (state.ipSet) {
+    print('GigabitEthernet0/0         192.168.1.1     YES NVRAM  up                    up      ', 't-ok');
+  } else {
+    print('GigabitEthernet0/0         unassigned      YES NVRAM  administratively down down    ', 't-err');
+  }
+  print('GigabitEthernet0/1         unassigned      YES NVRAM  administratively down down    ', 't-sys');
+  print('', '');
+}
+
+function validIP(ip) {
+  return /^(\d{1,3}\.){3}\d{1,3}$/.test(ip);
+}
+
+function updateStep(n, status) {
+  const step = document.getElementById(`step${n}`);
+  const num  = document.getElementById(`sn${n}`);
+  step.classList.remove('active', 'completed');
+  num.classList.remove('step-num-def', 'step-num-act', 'step-num-ok');
+  if (status === 'ok')  { step.classList.add('completed'); num.classList.add('step-num-ok'); num.textContent = '✓'; }
+  if (status === 'act') { step.classList.add('active');    num.classList.add('step-num-act'); }
+  if (status === 'def') { num.classList.add('step-num-def'); }
+}
+
+function updateScore() {
+  const labels = ['0 / 3 desafios', '1 / 3 desafios', '2 / 3 desafios', '3 / 3 desafios — Concluído! 🏆'];
+  scoreVal.textContent = labels[state.score] || state.score + ' / 3';
+}
+
+/* INPUT HANDLER */
+termInput.addEventListener('keydown', e => {
+  if (!state.started) return;
+  if (e.key === 'Enter') {
+    const val = termInput.value;
+    termInput.value = '';
+    processCmd(val);
+  }
+  if (e.key === 'ArrowUp') {
+    state.histIdx = Math.min(state.histIdx + 1, state.history.length - 1);
+    termInput.value = state.history[state.histIdx] || '';
+    e.preventDefault();
+  }
+  if (e.key === 'ArrowDown') {
+    state.histIdx = Math.max(state.histIdx - 1, -1);
+    termInput.value = state.histIdx >= 0 ? state.history[state.histIdx] : '';
+    e.preventDefault();
+  }
+  if (e.key === '?' && !e.shiftKey) {
+    e.preventDefault();
+    printCmd(prompt(), '?');
+    if (state.mode === 'user')      print('  enable   - Entrar no modo privilegiado', 't-info');
+    if (state.mode === 'enable')    { print('  configure terminal  - Entrar no modo de configuração', 't-info'); print('  show running-config - Ver configuração actual', 't-info'); print('  show ip interface brief - Ver estado das interfaces', 't-info'); }
+    if (state.mode === 'config')    { print('  hostname &lt;nome&gt;          - Definir hostname', 't-info'); print('  interface &lt;interface&gt;     - Entrar na interface', 't-info'); print('  enable secret &lt;pass&gt;     - Definir password', 't-info'); print('  end                        - Sair para modo privilegiado', 't-info'); }
+    if (state.mode === 'if_config') { print('  ip address &lt;IP&gt; &lt;máscara&gt; - Definir endereço IP', 't-info'); print('  no shutdown                - Activar interface', 't-info'); print('  exit                       - Sair para modo de configuração', 't-info'); }
+  }
+});
+
+/* Clicar no terminal foca o input */
+document.getElementById('terminal').addEventListener('click', () => {
+  if (state.started) termInput.focus();
+});
+</script>
+</body>
+</html>
